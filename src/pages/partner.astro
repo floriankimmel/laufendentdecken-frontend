@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/BlogPost.astro';
+import { Image } from 'astro:assets';
+import pCon from '../assets/pcon.png';
+---
+
+<Layout
+	title="Unsere Partner"
+	description="Herzlichen Danke für die Unterstützung"
+	pubDate={new Date('October 18 2023')}
+>
+	<p>
+        Wir möchten uns ganz herzlich bei all unseren Partner für ihre Unterstützung bedanken.
+        Ohne ihnen wäre es nicht möglich diesen Podcast jede Woche zu veröffentlichen. Danke!
+	</p>
+    <p style="text-align: center">
+        <a href="https://p-con.at/"> <Image src={pCon} alt="PCon Solutions" weight="350" height="122" /> </a>
+    </p>
+
+	<p>
+        P-Con Solutions ist ein Wiener IT-Unternehmen, geführt vom Eigentümer Ferdinand Pongracz.
+        Die Mitarbeiter mit zum Teil mehr als 20 Jahren IT-Erfahrung und zahlreichen Zertifizierungen 
+        sind stets bemüht, Sie als Kunde rasch und flexibel zu betreuen. Das Team mit Herz und Engagement ist motiviert,
+        immer die beste Lösung für Sie zu finden.
+	</p>
+
+</Layout>

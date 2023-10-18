@@ -21,6 +21,13 @@ const episodes = await res.json();
                 position: relative;
             }
 
+            .featureImage {
+                opacity: 0.5;
+            }
+
+            .show:hover .featureImage {
+                opacity: 0.9;
+            }
             .show:hover .show_play_icon_first {
                 transform: scale(1);
             }
@@ -116,7 +123,8 @@ const episodes = await res.json();
             episodes.map((episode, index) => (
                 <li>
                     <div class="show">
-                        <a href={`/episodes/${episode.slug}/`} >
+                        <a href={`/episodes/${episode.slug}/`}
+                            class="featureImage">
                             <FeatureImage slug={episode.slug} index={index} />
                             <h5 class="title" set:html={episode.title.rendered} />
                         </a>
