@@ -1,0 +1,24 @@
+---
+import { Image } from 'astro:assets';
+import { WORDPRESS_API_EPISODES_URL } from '../consts';
+const { slug, index } = Astro.props;
+
+const res = await fetch(`${WORDPRESS_API_EPISODES_URL}?slug=${slug}&_embed`)
+const [post] = await res.json();
+const height = index == 0 ? '420px' : '220px';
+const width = index == 0 ? '100%' : '374px';
+
+---
+<Image
+    src={post._embedded['wp:featuredmedia']['0'].media_details.sizes.large.source_url} 
+    class="img-fit"
+    alt={post._embedded['wp:featuredmedia']['0'].alt_text}
+    width={width}
+    height={height}
+    style={{
+        opacity: 0.5,
+        width: width,
+        objectFit: 'cover',
+        height: height, 
+    }}
+/>
