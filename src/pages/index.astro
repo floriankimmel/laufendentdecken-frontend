@@ -123,21 +123,23 @@ const episodes = await res.json();
             episodes.map((episode, index) => (
                 <li>
                     <div class="show">
-                        <a href={`/episodes/${episode.slug}/`}
+                        <a href={`/${episode.slug}/`}
                             class="featureImage">
                             <FeatureImage slug={episode.slug} index={index} />
                             <h5 class="title" set:html={episode.title.rendered} />
+                            <div
+                                class={index == 0 ? "show_play_icon_first" : "show_play_icon" }
+                            >
+                                <Image 
+                                    src={playButton} 
+                                    alt="https://www.flaticon.com/authors/cole-bemis"
+                                    width="100px"
+                                    height="100px"
+                                    class="noHover"
+                                    style="box-shadow: none;"
+                                />
+                            </div>
                         </a>
-                        <div class={index == 0 ? "show_play_icon_first" : "show_play_icon" }>
-                            <Image 
-                                src={playButton} 
-                                alt="https://www.flaticon.com/authors/cole-bemis"
-                                width="100px"
-                                height="100px"
-                                class="noHover"
-                            />
-                        </div>
-                      </a>
                     </div>
                 </li>
             ))

@@ -2,7 +2,7 @@
 title: 'Superkompensation'
 description: 'Alles was du wissen musst'
 pubDate: 'Nov 30 2014'
-heroImage: '/superkompensation.jpg'
+heroImage: '/superkompensation/superkompensation.jpg'
 ---
 Du hast in vielen Fachbüchern / Webseiten / Podcasts schon über die neue Art der Superkompensation gelesen / gehört,
 aber dir fehlen noch entscheidende Information zur Integration in deine eigene Wettkampfvorbereitung?

@@ -14,6 +14,8 @@
     "@astrojs/netlify": "^3.0.3",
     "@astrojs/rss": "^3.0.0",
     "@astrojs/sitemap": "^3.0.2",
+    "@podlove/player-react": "^5.12.0",
+    "@podlove/web-player": "^5.12.1",
     "astro": "^3.3.2"
   }
 }

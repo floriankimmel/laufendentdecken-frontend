@@ -1,0 +1,31 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import Layout from '../layouts/BlogPost.astro';
+import { PodloveWebPlayer } from '@podlove/player-react';
+
+const posts = await getCollection('blog');
+type Props = CollectionEntry<'blog'>;
+
+const { slug } = Astro.params;
+import { WORDPRESS_API_EPISODES_URL } from '../consts';
+
+const res = await fetch(`${WORDPRESS_API_EPISODES_URL}?slug=${slug}`)
+const [episode] = await res.json();
+---
+
+<Layout
+	title={episode.title.rendered}
+	pubDate={new Date(episode.date)}
+    featureImageId={episode.slug}
+>
+    <div id="player" data-slug={episode.id}></div>
+    <script>
+        const slug = document.getElementById('player').getAttribute('data-slug')
+        window.podlovePlayer(
+            '#player',
+            `https://laufendentdecken-podcast.at/wp-json/podlove-web-player/shortcode/publisher/${slug}`,
+            'https://laufendentdecken-podcast.at/wp-json/podlove-web-player/shortcode/config/podlovers/theme/default'
+        );
+    </script>
+    <Fragment set:html={episode.content.rendered} />
+</Layout>
