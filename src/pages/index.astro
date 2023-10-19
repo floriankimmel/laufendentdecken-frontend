@@ -120,7 +120,7 @@ const episodes = await res.json();
 			<section>
 				<ul>
             {
-            episodes.map((episode, index) => (
+            episodes.map((episode: any, index: number) => (
                 <li>
                     <div class="show">
                         <a href={`/${episode.slug}/`}
@@ -133,8 +133,8 @@ const episodes = await res.json();
                                 <Image 
                                     src={playButton} 
                                     alt="https://www.flaticon.com/authors/cole-bemis"
-                                    width="100px"
-                                    height="100px"
+                                    width=100
+                                    height=100
                                     class="noHover"
                                     style="box-shadow: none;"
                                 />
