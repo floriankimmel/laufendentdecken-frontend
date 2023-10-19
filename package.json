@@ -17,5 +17,9 @@
     "@podlove/player-react": "^5.12.0",
     "@podlove/web-player": "^5.12.1",
     "astro": "^3.3.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.0.3",
+    "prettier-plugin-astro": "^0.12.0"
   }
 }
