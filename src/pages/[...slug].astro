@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
 import Layout from '../layouts/BlogPost.astro';
 
 type Props = CollectionEntry<'blog'>;
@@ -17,15 +18,23 @@ export async function getStaticPaths() {
   }));
 }
 
-const res = await fetch(`${WORDPRESS_API_EPISODES_URL}?slug=${slug}`)
+const res = await fetch(`${WORDPRESS_API_EPISODES_URL}?slug=${slug}&_embed`)
 const [episode] = await res.json();
+
+const optimizedImage = await getImage({
+    src: episode._embedded['wp:featuredmedia']['0'].media_details.sizes.large.source_url,
+    width: 1020,
+    height: 510,
+    format: 'avif',
+})
+
 ---
 
 <Layout
 	title={episode.title.rendered}
     description=""
 	pubDate={new Date(episode.date)}
-    featureImageId={episode.slug}
+    heroImage={optimizedImage.src}
 >
     <div id="player" data-slug={episode.id}></div>
     <script type="text/javascript">

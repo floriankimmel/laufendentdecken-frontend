@@ -10,5 +10,8 @@ export default defineConfig({
   site: 'https://example.com',
   integrations: [mdx(), sitemap(), prefetch()],
     output: "hybrid",
-  adapter: netlify()
+  adapter: netlify(),
+    image: {
+        domains: ["laufendentdecken-podcast.at"],
+    }
 });

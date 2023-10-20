@@ -1,5 +1,11 @@
+---
+import headerImage from '../assets/header.jpg';
+import { getImage } from 'astro:assets';
+
+const optimizedImage = await getImage({ src: headerImage, format: 'avif'})
+---
 <div class="shell">
-    <header class="shell-header" />
+    <header class="shell-header" style=`background-image: url(${optimizedImage.src})` />
 </div>
 <style>
 .shell {
@@ -19,7 +25,6 @@
     grid-row: 1 / 2;
 
     color: #FFF;
-    background-image: url("/images/header.jpg");
     background-color: #cccccc; /* Used if the image is unavailable */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
