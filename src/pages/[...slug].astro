@@ -1,19 +1,17 @@
 ---
-import { getImage } from 'astro:assets';
+import { fetchImage } from '../components/GetImage';
 import Layout from '../layouts/BlogPost.astro';
 
 import { WORDPRESS_API_EPISODES_URL } from '../consts';
 
 export async function getStaticPaths() {
     const perPage = 100;
-    var page = 1;
-    var loadMore = true;
     var pages = Array<any>();
 
-    while (loadMore) {
-        console.log(`Fetching page ${page} of episodes`);
-        let data = await fetch(`${WORDPRESS_API_EPISODES_URL}/?per_page=${perPage}&page=${page}&_embed`)
-        let episodes = await data.json();
+    while (true) {
+        const page = (pages.length / perPage) + 1;
+        const data = await fetch(`${WORDPRESS_API_EPISODES_URL}/?per_page=${perPage}&page=${page}&_embed`)
+        const episodes = await data.json();
 
         pages = pages.concat(
             episodes.map((episode: any) => {
@@ -25,26 +23,14 @@ export async function getStaticPaths() {
         );
 
         if (episodes.length < perPage) {
-            loadMore = false;
+            return pages;
         }
-        page++;
     }
-    return pages;
 }
 
 const { episode } = Astro.props;
 
-var src = episode._embedded['wp:featuredmedia']['0'].media_details.sizes.large?.source_url
-if (!src) {
-    src = episode._embedded['wp:featuredmedia']['0'].media_details.sizes.full.source_url
-}
-const optimizedImage = await getImage({
-    src,
-    width: 1020,
-    height: 510,
-    format: 'avif',
-})
-
+const optimizedImage = await fetchImage(episode) 
 ---
 
 <Layout

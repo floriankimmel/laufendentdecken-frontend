@@ -1,4 +1,5 @@
 ---
+import '../../styles/podcast.css';
 import BaseHead from '../../components/BaseHead.astro';
 import Banner from '../../components/Banner.astro';
 import Header from '../../components/Header.astro';
@@ -15,16 +16,14 @@ interface Props {
 }
 
 export async function getStaticPaths() {
-    var page = 1;
-    var loadMore = true;
-    var pages = Array<any>();
+    const pages = Array<any>();
 
-    while (loadMore) {
-        console.log(`Fetching page ${page} of episodes`);
-        let data = await fetch(`${WORDPRESS_API_EPISODES_URL}/?per_page=${PER_PAGE}&page=${page}&_embed`)
-        let episodes = await data.json();
+    while (true) {
+        const page = pages.length + 1;
+        const data = await fetch(`${WORDPRESS_API_EPISODES_URL}/?per_page=${PER_PAGE}&page=${page}&_embed`)
+        const episodes = await data.json();
 
-        pages = pages.concat({
+        pages.push({
             params: { page },
             props: { 
                 episodes,
@@ -33,11 +32,9 @@ export async function getStaticPaths() {
         });
 
         if (episodes.length < PER_PAGE) {
-            loadMore = false;
+           return pages;
         }
-        page++;
     }
-    return pages;
 }
 
 const { episodes, page } = Astro.props;
@@ -47,74 +44,6 @@ const { episodes, page } = Astro.props;
 <html lang="en">
     <head>
         <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-    <style>
-        .show {
-            display: block;
-            position: relative;
-        }
-
-        .featureImage {
-            opacity: 0.5;
-        }
-
-        .show:hover .featureImage {
-            opacity: 0.9;
-        }
-
-        .show:hover .show_play_icon {
-            transform: scale(1);
-        }
-
-        .show_play_icon {
-            position: absolute;
-            cursor: pointer;
-            top: 24%;
-            left: 35%;
-            transform: scale(0.85);
-            transition: 0.3s;
-        }
-        main {
-            width: 80%;
-        }
-        ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        ul li {
-            width: calc(32% - 0.5rem);
-            text-decoration: none;
-            transition: 0.2s ease;
-        }
-        ul li a {
-            display: block;
-        }
-        .title {
-            margin: 0;
-            color: rgb(var(--accent));
-            line-height: 1;
-            font-size: 0.9em;
-        }
-        ul li a:hover h4,
-        ul li a:hover .date {
-            color: rgb(var(--accent));
-        }
-        ul a:hover img {
-            box-shadow: var(--box-shadow);
-        }
-        @media (max-width: 720px) {
-            ul {
-                gap: 0.5em;
-            }
-            ul li {
-                width: 100%;
-                text-align: center;
-            }
-        }
-        </style>
     </head>
     <body>
         <Header title={SITE_TITLE} />
@@ -129,10 +58,10 @@ const { episodes, page } = Astro.props;
                                     class="featureImage">
                                     <FeatureImage slug={episode.slug} />
                                     <h5 class="title" set:html={episode.title.rendered} />
-                                    <div class="show_play_icon">
+                                    <div class="showPlayIcon">
                                         <Image 
                                             src={playButton} 
-                                            alt="Play"
+                                            alt="play"
                                             style="box-shadow: none;"
                                             format='avif'
                                         />
