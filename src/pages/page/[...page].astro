@@ -1,15 +1,46 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Banner from '../components/Banner.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import FeatureImage from '../components/FeatureImage.astro';
-import { Image } from 'astro:assets';
-import playButton from '../assets/play.png';
-import { SITE_TITLE, SITE_DESCRIPTION, WORDPRESS_API_EPISODES_URL } from '../consts';
+import BaseHead from '../../components/BaseHead.astro';
+import Banner from '../../components/Banner.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import FeatureImage from '../../components/FeatureImage.astro';
+import playButton from '../../assets/play.png';
 
-const res = await fetch(WORDPRESS_API_EPISODES_URL)
-const episodes = await res.json();
+import { Image } from 'astro:assets';
+import { SITE_TITLE, SITE_DESCRIPTION, WORDPRESS_API_EPISODES_URL, PER_PAGE } from '../../consts';
+
+interface Props {
+    episodes: any;
+    page: number;
+}
+
+export async function getStaticPaths() {
+    var page = 1;
+    var loadMore = true;
+    var pages = Array<any>();
+
+    while (loadMore) {
+        console.log(`Fetching page ${page} of episodes`);
+        let data = await fetch(`${WORDPRESS_API_EPISODES_URL}/?per_page=${PER_PAGE}&page=${page}&_embed`)
+        let episodes = await data.json();
+
+        pages = pages.concat({
+            params: { page },
+            props: { 
+                episodes,
+                page
+            },
+        });
+
+        if (episodes.length < PER_PAGE) {
+            loadMore = false;
+        }
+        page++;
+    }
+    return pages;
+}
+
+const { episodes, page } = Astro.props;
 ---
 
 <!doctype html>
@@ -29,21 +60,9 @@ const episodes = await res.json();
         .show:hover .featureImage {
             opacity: 0.9;
         }
-        .show:hover .show_play_icon_first {
-            transform: scale(2);
-        }
 
         .show:hover .show_play_icon {
             transform: scale(1);
-        }
-
-        .show_play_icon_first {
-            position: absolute;
-            cursor: pointer;
-            top: 37%;
-            left: 45%;
-            transform: scale(1.85);
-            transition: 0.3s;
         }
 
         .show_play_icon {
@@ -67,18 +86,8 @@ const episodes = await res.json();
         }
         ul li {
             width: calc(32% - 0.5rem);
-        }
-        ul li * {
             text-decoration: none;
             transition: 0.2s ease;
-        }
-        ul li:first-child {
-            width: 100%;
-            margin-bottom: 1rem;
-            text-align: center;
-        }
-        ul li:first-child .title {
-            font-size: 2.369rem;
         }
         ul li a {
             display: block;
@@ -104,12 +113,6 @@ const episodes = await res.json();
                 width: 100%;
                 text-align: center;
             }
-            ul li:first-child {
-                margin-bottom: 0;
-            }
-            ul li:first-child .title {
-                font-size: 1.263em;
-            }
         }
         </style>
     </head>
@@ -119,16 +122,14 @@ const episodes = await res.json();
         <main>
             <section>
                 <ul>
-                    {episodes.map((episode: any, index: number) => (
+                    {episodes.map((episode: any) => (
                         <li>
                             <div class="show">
                                 <a href={`/${episode.slug}/`}
                                     class="featureImage">
-                                    <FeatureImage slug={episode.slug} index={index} />
+                                    <FeatureImage slug={episode.slug} />
                                     <h5 class="title" set:html={episode.title.rendered} />
-                                    <div
-                                        class={index == 0 ? "show_play_icon_first" : "show_play_icon" }
-                                    >
+                                    <div class="show_play_icon">
                                         <Image 
                                             src={playButton} 
                                             alt="Play"
@@ -142,8 +143,9 @@ const episodes = await res.json();
                     )) }
                 </ul>
                 <div class="pagination">
-                    <span>  &lt;&lt;&lt; </span>
-                    <a href={`/page/2`}>  &gt;&gt;&gt; </a>
+                    <a href={page == 2 ? `/` : `/page/${page-1}`}> &lt;&lt;&lt; </a> 
+                    <a href={`/page/${page+1}`} style=`display: ${episodes.length < PER_PAGE ? 'none' : 'block'}`> &gt;&gt;&gt;</a>
+                    <span style=`display: ${episodes.length < PER_PAGE ? 'block' : 'none'}; margin-left: 3.5em;`> &gt;&gt;&gt;</span>
                 </div>
             </section>
         </main>

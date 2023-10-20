@@ -8,8 +8,12 @@ const [post] = await res.json();
 const height = index == 0 ? `420px` : `220px`;
 const width = index == 0 ? '100%' : '374px';
 
+var src = post._embedded['wp:featuredmedia']['0'].media_details.sizes.large?.source_url
+if (!src) {
+    src = post._embedded['wp:featuredmedia']['0'].media_details.sizes.full.source_url
+}
 const optimizedImage = await getImage({
-    src: post._embedded['wp:featuredmedia']['0'].media_details.sizes.large.source_url,
+    src,
     width:1020,
     height:510,
     format: 'avif',
