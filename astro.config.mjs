@@ -9,6 +9,6 @@ import prefetch from "@astrojs/prefetch";
 export default defineConfig({
   site: 'https://example.com',
   integrations: [mdx(), sitemap(), prefetch()],
-  output: "server",
+    output: "hybrid",
   adapter: netlify()
 });

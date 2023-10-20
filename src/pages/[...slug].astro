@@ -7,6 +7,16 @@ type Props = CollectionEntry<'blog'>;
 const { slug } = Astro.params;
 import { WORDPRESS_API_EPISODES_URL } from '../consts';
 
+export async function getStaticPaths() {
+  let data = await fetch(WORDPRESS_API_EPISODES_URL)
+  let episodes = await data.json();
+
+  return episodes.map((episode: any) => ({
+    params: { slug: episode.slug },
+    props: { post: episode },
+  }));
+}
+
 const res = await fetch(`${WORDPRESS_API_EPISODES_URL}?slug=${slug}`)
 const [episode] = await res.json();
 ---
