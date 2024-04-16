@@ -84,7 +84,7 @@ ui:
         bgPage: rgb(255 255 255)
         primary: rgb(0 156 168)
         secondary: rgb(1 84 207)
-        accent: rgb(109 40 217)
+        accent: rgb(0 156 168)
     dark:
       fonts: {}
       colors:
@@ -94,4 +94,5 @@ ui:
         bgPage: rgb(3 6 32)
         primary: rgb(0 156 168)
         secondary: rgb(1 84 207)
-        accent: rgb(109 40 217)
+        accent: rgb(0 156 168)
+

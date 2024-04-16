@@ -2,157 +2,192 @@
 import Layout from '~/layouts/PageLayout.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
+import Content from '~/components/widgets/Content.astro';
 import Steps from '~/components/widgets/Steps.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
-import Stats from '~/components/widgets/Stats.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
-  title: 'AstroWind — Free template for creating websites with Astro + Tailwind CSS',
-  ignoreTitleTemplate: true,
+    title: 'AstroWind — Free template for creating websites with Astro + Tailwind CSS',
+    ignoreTitleTemplate: true,
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Widget ******************* -->
+    <!-- Hero Widget ******************* -->
 
-  <Hero
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Subscribe',
-        href: '',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
-      { text: 'Entdecke unsere Episoden', href: '#episodes' },
-    ]}
-    image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image', aspectRatio: '2.7', style: 'object-fit: contain' }}
-  >
-    <Fragment slot="title">
-      <span class="hidden xl:inline">Laufend </span>
-      <span class="text-accent dark:text-white highlight"> Entdecken </span> Podcast 
-    </Fragment>
+    <Hero
+        actions={[
+            {
+                variant: 'primary',
+                text: 'Subscribe',
+                href: '',
+                target: '_blank',
+                icon: 'tabler:download',
+            },
+            { text: 'Entdecke unsere Episoden', href: '#episodes' },
+        ]}
+        image={{ src: '~/assets/images/hero-image.png', alt: 'AstroWind Hero Image', aspectRatio: '2.7', style: 'object-fit: contain' }}
+    >
+        <Fragment slot="title">
+            <span class="hidden xl:inline">Laufend </span>
+            <span class="text-accent dark:text-white highlight"> Entdecken </span> Podcast 
+        </Fragment>
 
-    <Fragment slot="subtitle">
-      <span class="hidden sm:inline">
-        <span class="font-semibold">Der österreichische Podcast </span>rund ums Laufen, Trailrunning, das Training und die Ausdauersportwelt </span>
-    </Fragment>
-  </Hero>
+        <Fragment slot="subtitle">
+            <span class="hidden sm:inline">
+                <span class="font-semibold">Der österreichische Podcast </span>rund ums Laufen, Trailrunning, das Training und die Ausdauersportwelt </span>
+        </Fragment>
+    </Hero>
 
-  <!-- HighlightedPosts Widget ******* -->
-
-  <BlogLatestPosts
+    <BlogLatestPosts
         id="episodes"
         title="Entdecke all unsere Episoden"
         information={`Seit Anfang des Jahres (2017) betreiben wir nun diesen Podcast, 
                       in dem wir vor allem über unser Laufen quatschen. Es macht uns wahnsinnigen Spaß unsere "Blödheiten" 
                       mit euch zu teilen und dem ein oder anderen etwas Inspiration zu geben. 
                       Wir sind für jegliche Art von Feedback immer äußerst dankbar und versuchen dieses, so gut wie möglich, ein zu bauen.`}
-  />
+    />
 
-  <!-- CallToAction Widget *********** -->
+    <Content
+        isReversed
+        tagline="Die extra Meile gehen"
+        title="Unterstütze diesen Podcast"
+        items={[
+            {
+                title: 'Unterstütze uns auf Patreon',
+                description: 'Werde Teil der wachsenden Patreon Community und spende uns jeden Monat ein "Bier"',
+            },
+            {
+                title: 'Unterstütze uns auf SteadyHq',
+                description: 'Werde Teil der wachsenden Steady Community und spende uns jeden Monat ein "Bier"',
+            },
+            {
+                title: 'Entdecke unseren Merche Shop',
+                description:
+                'Zeig der Welt was für ein Laufend Entdecken Fan du bist und leg dir ein tolles T-Shirt zu',
+            },
+            {
+                title: 'Discord Community',
+                description:
+                'Unterstütze uns auf Patroen oder Steady HQ und werde Teil unserer Discord Community und diskutieren mit uns über Laufen',
+            },
+        ]}
+        image={{
+            src: 'https://images.unsplash.com/photo-1503980599186-9cc36eda351a?q=80&w=1800&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            alt: 'Colorful Image',
+        }}
+    >
+        <Fragment slot="content">
+            <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Findest du besonders toll was wir hier machen?</h3>
+            Dann nutze einer der vielen Möglichkeiten uns zu unterstützen und supporte dieses Podcast Projekt
+        </Fragment>
 
-  <CallToAction
-    actions={[
-      {
-        variant: 'primary',
-        text: 'Patreon',
-        href: 'https://github.com/onwidget/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
-      {
-        variant: 'primary',
-        text: 'Steady',
-        href: 'https://github.com/onwidget/astrowind',
-        target: '_blank',
-        icon: 'tabler:download',
-      },
-    ]}
-  >
-    <Fragment slot="title">
-      Werde Podcast <br class="block sm:hidden" /><span class="sm:whitespace-nowrap">Unterstützer</span>
-    </Fragment>
+        <Fragment slot="bg">
+            <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+        </Fragment>
+    </Content> 
 
-    <Fragment slot="subtitle">
-       Überzeugenden Text warum man untestützen soll
-    </Fragment>
-  </CallToAction>
+    <CallToAction
+        actions={[
+            {
+                variant: 'primary',
+                text: 'Patreon',
+                href: 'https://github.com/onwidget/astrowind',
+                target: '_blank',
+                icon: 'tabler:download',
+            },
+            {
+                variant: 'primary',
+                text: 'Steady',
+                href: 'https://github.com/onwidget/astrowind',
+                target: '_blank',
+                icon: 'tabler:download',
+            },
+        ]}
+    >
+        <Fragment slot="title">
+            Werde Podcast <span class="text-accent dark:text-white highligh tsm:whitespace-nowrap"> &nbsp;Unterstützer</span>
+        </Fragment>
 
-  <!-- Steps Widget ****************** -->
+        <Fragment slot="subtitle">
+            Überzeugenden Text warum man untestützen soll
+        </Fragment>
+    </CallToAction>
 
-  <Steps
-    title="Werde Podcast Untestützer"
-    items={[
-      {
-        title: 'Step 1: <span class="font-medium">Werde Mitglied bei Steady oder Patreon</span>',
-        description:
-          "Insert Beschreibung hier",
-        icon: 'tabler:package',
-      },
-      {
-        title: 'Step 2: <span class="font-medium">Privater Rss Feed</em>',
-        description:
-          "Insert Beschreibung hier",
-        icon: 'tabler:letter-case',
-      },
-      {
-        title: 'Step 3: <span class="font-medium">Discord</span>',
-        description:
-          "Insert Beschreibung hier",
-        icon: 'tabler:paint',
-      },
-      {
-        title: 'Ready!',
-        icon: 'tabler:check',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1616198814651-e71f960c3180?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=987&q=80',
-      alt: 'Steps image',
-    }}
-  />
-  <!-- FAQs Widget ******************* -->
+    <!-- Steps Widget ****************** -->
 
-  <FAQs
-    title="Frequently Asked Questions"
-    subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
-    tagline="FAQs"
-    classes={{ container: 'max-w-6xl' }}
-    items={[
-      {
-        title: 'Why AstroWind?',
-        description:
-          "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
-      },
-      {
-        title: 'What do I need to start?',
-        description:
-          'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
-      },
-      {
-        title: 'How to install the Astro + Tailwind CSS template?',
-        description:
-          "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.",
-      },
-      {
-        title: "What's something that you don't understand?",
-        description:
-          "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
-      },
-      {
-        title: 'What is something that you would like to try again?',
-        description:
-          "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
-      },
-      {
-        title: 'If you could only ask one question to each person you meet, what would that question be?',
-        description:
-          "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
-      },
-    ]}
-  />
+    <Steps
+        title="Road to Discord"
+        items={[
+            {
+                title: 'Step 1: <span class="font-medium">Werde Mitglied bei Steady oder Patreon</span>',
+                description:
+                "Insert Beschreibung hier",
+                icon: 'tabler:package',
+            },
+            {
+                title: 'Step 2: <span class="font-medium">Privater Rss Feed</em>',
+                description:
+                "Insert Beschreibung hier",
+                icon: 'tabler:letter-case',
+            },
+            {
+                title: 'Step 3: <span class="font-medium">Discord</span>',
+                description:
+                "Insert Beschreibung hier",
+                icon: 'tabler:paint',
+            },
+            {
+                title: 'Ready!',
+                icon: 'tabler:check',
+            },
+        ]}
+        image={{
+            src: 'https://images.unsplash.com/photo-1614680376739-414d95ff43df?q=80&w=2874&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+            alt: 'Steps image',
+        }}
+    />
+    <!-- FAQs Widget ******************* -->
+
+    <FAQs
+        title="Frequently Asked Questions"
+        subtitle="Dive into the following questions to gain insights into the powerful features that AstroWind offers and how it can elevate your web development journey."
+        tagline="FAQs"
+        classes={{ container: 'max-w-6xl' }}
+        items={[
+            {
+                title: 'Why AstroWind?',
+                description:
+                "Michael Knight a young loner on a crusade to champion the cause of the innocent. The helpless. The powerless in a world of criminals who operate above the law. Here he comes Here comes Speed Racer. He's a demon on wheels.",
+            },
+            {
+                title: 'What do I need to start?',
+                description:
+                'Space, the final frontier. These are the voyages of the Starship Enterprise. Its five-year mission: to explore strange new worlds. Many say exploration is part of our destiny, but it’s actually our duty to future generations.',
+            },
+            {
+                title: 'How to install the Astro + Tailwind CSS template?',
+                description:
+                "Well, the way they make shows is, they make one show. That show's called a pilot. Then they show that show to the people who make shows, and on the strength of that one show they decide if they're going to make more shows.",
+            },
+            {
+                title: "What's something that you don't understand?",
+                description:
+                "A flower in my garden, a mystery in my panties. Heart attack never stopped old Big Bear. I didn't even know we were calling him Big Bear.",
+            },
+            {
+                title: 'What is something that you would like to try again?',
+                description:
+                "A business big enough that it could be listed on the NASDAQ goes belly up. Disappears! It ceases to exist without me. No, you clearly don't know who you're talking to, so let me clue you in.",
+            },
+            {
+                title: 'If you could only ask one question to each person you meet, what would that question be?',
+                description:
+                "This is not about revenge. This is about justice. A lot of things can change in twelve years, Admiral. Well, that's certainly good to know. About four years. I got tired of hearing how young I looked.",
+            },
+        ]}
+    />
 
 </Layout>
